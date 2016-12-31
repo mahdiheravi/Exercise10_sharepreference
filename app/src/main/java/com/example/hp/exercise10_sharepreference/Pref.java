@@ -20,6 +20,14 @@ public class Pref {
         preferences = mycontex.getSharedPreferences(domain,mycontex.MODE_PRIVATE);
         editor = preferences.edit();
     }
+    public Setting getsetting()
+    {
+        Gson gson  = new Gson();
+        Setting output;
+        output = gson.fromJson(preferences.getString(SettingKey,""),Setting.class);
+        return  output;
+    }
+
 
 
 }

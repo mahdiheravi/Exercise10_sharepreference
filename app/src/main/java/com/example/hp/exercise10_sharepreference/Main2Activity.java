@@ -3,6 +3,8 @@ package com.example.hp.exercise10_sharepreference;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,13 +15,18 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Intent Myintent = getIntent();
-        String Themecolor;
-        Themecolor = Myintent.getStringExtra("theme");
+        Setting mysetting = new Setting();
+        final String[] ThemeColor = new String[1];
+
+        mysetting = (Setting) Myintent.getParcelableExtra("setting");
+        Log.d("===========","mmmmmm");
         Button btnred = (Button) findViewById(R.id.btnenter);
         Button btngreen = (Button) findViewById(R.id.btngreen);
         Button btnblue = (Button) findViewById(R.id.btnblue);
         TextView mytext = (TextView) findViewById(R.id.textView);
-        mytext.setText(Themecolor);
+        mytext.setText(mysetting.getUsername());
+
+
 
 
     }

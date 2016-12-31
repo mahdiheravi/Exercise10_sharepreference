@@ -27,6 +27,12 @@ public class Pref {
         output = gson.fromJson(preferences.getString(SettingKey,""),Setting.class);
         return  output;
     }
+    public void setsetting(Setting input)
+    {
+        Gson gson  = new Gson();
+        editor.putString(SettingKey,gson.toJson(input));
+        editor.commit();
+    }
 
 
 

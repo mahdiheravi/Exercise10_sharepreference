@@ -1,5 +1,6 @@
 package com.example.hp.exercise10_sharepreference;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,17 +17,31 @@ public class MainActivity extends AppCompatActivity {
         Button btnenter = (Button) findViewById(R.id.btnenter);
         EditText txtusername = (EditText) findViewById(R.id.txtusername);
         EditText txtpass = (EditText) findViewById(R.id.txtpass);
-        final Pref mypref = new Pref(MainActivity.this);
-        final Setting mysetting = new Setting();
-        mysetting.setUsername(txtusername.getText().toString());
-        mysetting.setPassword(txtpass.getText().toString());
-        btnenter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mypref.setsetting(mysetting);
 
-            }
-        });
+        final Pref mypref = new Pref(MainActivity.this);
+        Setting mysetting = new Setting();
+        mysetting = mypref.getsetting();
+        if (mysetting.getUsername()=="" && mysetting.getPassword()=="")
+        {
+            Intent Myintent = new Intent(MainActivity.this, Main2Activity.class);
+            Myintent.putExtra("theme",mysetting.getThemecolor());
+            startActivity(Myintent);
+        }
+        else
+        {
+            mysetting.setUsername(txtusername.getText().toString());
+            mysetting.setPassword(txtpass.getText().toString());
+
+            final Setting finalMysetting = mysetting;
+            btnenter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mypref.setsetting(finalMysetting);
+
+                }
+            });
+        }
+
 
 
 
@@ -34,12 +49,24 @@ public class MainActivity extends AppCompatActivity {
 
       //  mypref.initialize();
 
-       mysetting.setUsername(mypref.getsetting().getUsername());
+      // mysetting.setUsername(mypref.getsetting().getUsername());
      // if (mysetting.getUsername()=="")
 
 
 
 
+
+
+    }
+    public Boolean IsLogined()
+    {
+         Pref mypref = new Pref(MainActivity.this);
+         Setting mysetting = new Setting();
+        mysetting = mypref.getsetting();
+        if (mysetting.getUsername()=="" && mysetting.getPassword()=="")
+            return false;
+        else
+            return true;
 
 
     }

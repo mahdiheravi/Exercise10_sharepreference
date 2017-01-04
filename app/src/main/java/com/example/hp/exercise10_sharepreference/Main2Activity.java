@@ -1,5 +1,6 @@
 package com.example.hp.exercise10_sharepreference;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,15 +20,39 @@ public class Main2Activity extends AppCompatActivity {
         final String[] ThemeColor = new String[1];
 
         mysetting = (Setting) Myintent.getParcelableExtra("setting");
-        Log.d("===========","mmmmmm");
+
         Button btnred = (Button) findViewById(R.id.btnenter);
         Button btngreen = (Button) findViewById(R.id.btngreen);
         Button btnblue = (Button) findViewById(R.id.btnblue);
         TextView mytext = (TextView) findViewById(R.id.textView);
+        Button btnlogout = (Button) findViewById(R.id.btnlogout);
+        btnlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pref mypref = new Pref(Main2Activity.this);
+
+                Setting mysetting = new Setting();
+                mysetting.setUsername("");
+                mysetting.setPassword("");
+                mypref.setsetting(mysetting);
+
+                Log.d("myintent1", "logout");
+                finish();
+               // Intent Myintent2 = new Intent(Main2Activity.this, MainActivity.class);
+               // startActivity(Myintent2);
+                Log.d("========", "myintent2");
+
+            }
+        });
         mytext.setText(mysetting.getUsername());
+        // final Setting finalMysetting = mysetting;
 
 
+    }
 
-
+    public void changeTheme(String theme, Setting mysetting) {
+        Pref mypref = new Pref(Main2Activity.this);
+        mysetting.setThemecolor(theme);
+        mypref.setsetting(mysetting);
     }
 }

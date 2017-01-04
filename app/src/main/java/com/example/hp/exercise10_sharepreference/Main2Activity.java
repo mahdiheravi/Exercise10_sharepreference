@@ -11,23 +11,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity {
+    Setting mysetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+
+
         Intent Myintent = getIntent();
-        Setting mysetting = new Setting();
-        final String[] ThemeColor = new String[1];
+        mysetting = new Setting();
 
         mysetting = (Setting) Myintent.getParcelableExtra("setting");
-
+        Log.d("mahdi", mysetting.getThemecolor());
+        if (mysetting.getThemecolor()=="BLUE")
+            setTheme(R.style.Theme_MyBLUETheme);
+        if (mysetting.getThemecolor()=="RED")
+            setTheme(R.style.Theme_MyREDTheme);
+        if (mysetting.getThemecolor()=="GREEN")
+            setTheme(R.style.Theme_MyGreenTheme);
+        setContentView(R.layout.activity_main2);
         Button btnred = (Button) findViewById(R.id.btnred);
         btnred.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ThemeColor[0]="RED";
-               // Toast.makeText(Main2Activity.this, "RED", Toast.LENGTH_SHORT).show();
+                changeTheme("RED");
+                recreate();
             }
         });
 
@@ -35,17 +43,17 @@ public class Main2Activity extends AppCompatActivity {
         btngreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ThemeColor[0]="GREEN";
-                //Toast.makeText(Main2Activity.this, "GREEN", Toast.LENGTH_SHORT).show();
-
+                changeTheme("GREEN");
+                recreate();
             }
         });
         Button btnblue = (Button) findViewById(R.id.btnblue);
+
         btnblue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ThemeColor[0]="BLUE";
-               // Toast.makeText(Main2Activity.this, "BLUE", Toast.LENGTH_SHORT).show();
+                changeTheme("BLUE");
+                recreate();
             }
         });
 
@@ -59,23 +67,19 @@ public class Main2Activity extends AppCompatActivity {
                 Setting mysetting = new Setting();
                 mysetting.setUsername("");
                 mysetting.setPassword("");
+                mysetting.setThemecolor("");
                 mypref.setsetting(mysetting);
 
-               // Log.d("myintent1", "logout");
                 finish();
-               // Intent Myintent2 = new Intent(Main2Activity.this, MainActivity.class);
-               // startActivity(Myintent2);
-                //Log.d("========", "myintent2");
 
             }
         });
         mytext.setText(mysetting.getUsername());
-        // final Setting finalMysetting = mysetting;
 
 
     }
 
-    public void changeTheme(String theme, Setting mysetting) {
+    public void changeTheme(String theme) {
         Pref mypref = new Pref(Main2Activity.this);
         mysetting.setThemecolor(theme);
         mypref.setsetting(mysetting);

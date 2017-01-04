@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Setting mysetting = new Setting();
 
         mysetting = mypref.getsetting();
-        Log.d("setting",mysetting.getUsername());
-        Log.d("=======","=======");
+
+
 
         if (mysetting.getUsername() != "" && mysetting.getPassword() != "") {
 
@@ -34,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
             Myintent.putExtra("setting", mysetting);
 
             startActivity(Myintent);
-        } else
-        {
+        }
+
+
             final Setting finalMysetting = mysetting;
             final Setting finalMysetting1 = mysetting;
             btnenter.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     finalMysetting1.setUsername(txtusername.getText().toString());
                     finalMysetting1.setPassword(txtpass.getText().toString());
+                    finalMysetting1.setThemecolor("");
                     mypref.setsetting(finalMysetting1);
                     Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
                     Intent Myintent2 = new Intent(MainActivity.this, Main2Activity.class);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        }
+
 
 
 
